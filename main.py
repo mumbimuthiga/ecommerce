@@ -43,6 +43,19 @@ async def register_users(user:User):
 
 
 
+@app.get('/api/v1/user/{user_id}')
+async def get_user(user_id:UUID):
+   
+    for user in db:
+        if user.id==user_id:
+            return user   
+    raise HTTPException(
+        status_code=404,
+        detail="User does not exist yet"
+    )
+
+
+
 @app.delete('/api/v1/users/{user_id}')
 async def delete_user(user_id:UUID):
     for user in db:
